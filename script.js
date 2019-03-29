@@ -19,8 +19,9 @@ $.getJSON(
 var baseURL = "https://xivapi.com";
 //xivapi /Character data
 var currentJobID = -1;
+var charID = 23926111;
 $.getJSON(
-  "https://xivapi.com/Character/23926111",
+  "https://xivapi.com/Character/" + charID,
   function(data){
     /*console.log(data);*/
 
@@ -32,9 +33,12 @@ $.getJSON(
     var currentLvl = data.Character.ActiveClassJob.Level;
 
     $(".portrait").attr("src", portrait);
+    var lodestone = "https://na.finalfantasyxiv.com/lodestone/character/" + charID + "/";
+    $(".portraitURL").attr("href", lodestone);
     $(".name").append(name);
     $(".server").append(server);
     $(".lvl").append(currentLvl);
+
   }
 );
 //xivapi /ClassJob using data from /Character
