@@ -5,22 +5,52 @@
   <link rel="stylesheet" type="text/css" href="style.css" />
   <title>HELLO TAB!</title>
   <link rel="icon" href="/favicon.ico">
-  <h1><a href="https://www.openweathermap.org">OpenWeatherMap</a> API test</h1>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="script.js"></script>
 </head>
-<body>
+
+<body class="bg" style="background-color:#686868;text-align:center">
   <div class="weather-container">
+    <h1><a href="https://www.openweathermap.org">OpenWeatherMap</a> API test</h1>
     <h1>Alameda</h1>
-    <img class="icon">
+    <img class="icon" alt="weather icon">
     <p class="weather"></p>
-    <span class="temp"></span>
-    <span>°F</span>
+    <p>
+      <span class="temp"></span>
+      <span>°F</span>
+    </p>
+  </div>
+  <div class="xivapi-container">
+    <span class="xivapiURL">
+      <p>xivapi link</p>
+      <a href="https://xivapi.com/">
+        <img src="https://xivapi.com/img-misc/Mendacity.png" alt="xivapi icon">
+      </a>
+    </span>
+    <h1>Final Fantasy XIV API Test</h1>
+    <p>
+      <img class="portrait" alt="character portrait" style="width:256px;height:349px;">
+    </p>
+    <p>
+      <b><span class="name"/></span></b>.
+    </p>
+    <p class="charInfo">
+      <span class="lvl">Lvl </span>
+      <span class="job"> </span>
+      <img class="jobIcon" alt="job icon" style="width:16px;height:16px;">
+    </p>
+    <p class="server">Server: </p>
   </div>
 </body>
 </html>
-<footer>
-  <a href="https://github.com/cantremebermyurl">
-    <img src="GitHub-Mark-32px.png" alt="GitHub cat png"> This is me
-  </a>
-</footer>
+<a href="https://github.com/cantremebermyurl">
+  <footer class="footer">
+    <p>
+      <span class="githubIcon">
+        <img src="GitHub-Mark-32px.png" alt="GitHub cat png">
+        Click Me
+        <img src="GitHub-Mark-32px.png" alt="GitHub cat png">
+      </span>
+    </p>
+  </footer>
+</a>

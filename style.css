@@ -1,5 +1,17 @@
+/*weather api*/
+body, html{
+  height: 100%;
+}
+.bg{
+  background-image: url(https://i.imgur.com/Rwrbnto.jpg);
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
 .weather-container{
-  background: #ccc;
+  background: #ccc url(https://i.imgur.com/Dxa7Iak.png) center no-repeat;
   text-align: center;
 }
 .weather{
@@ -10,4 +22,68 @@
   font-size: 30px;
   margin: 0;
   font-weight: bold;
+}
+
+/*xivapi*/
+.xivapiURL{
+  position: relative;
+  right: calc(50% - 46px);
+}
+.xivapi-container{
+  background-image: url(https://i.imgur.com/bscjsyW.jpg);
+  background-color: #ccc;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+  color: white;
+    font-size: 20px;
+    text-shadow:
+        0.07em 0 black,
+        0 0.07em black,
+        -0.07em 0 black,
+        0 -0.07em black;
+}
+.name{
+  font-size: 30px;
+  margin: 0;
+  font-weight: bold;
+}
+.charInfo{
+  font-size: 16px;
+  margin: 0;
+}
+.server{
+  font-size: 16px;
+  margin: 1;
+  padding-bottom: 5px;
+}
+
+/*footer*/
+.footer{
+  background: #ccc;
+  text-align: center;
+  font-size: 16px;
+  color: white;
+    font-size: 20px;
+    text-shadow:
+        0.07em 0 black,
+        0 0.07em black,
+        -0.07em 0 black,
+        0 -0.07em black;
+
+  margin-top: 5px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  background-image: url(https://i.imgur.com/wncFFD3.png);
+  background-position: center;
+  background-repeat: repeat;
+  background-size: 4%;
+
+}
+.githubIcon{
+  box-shadow: inset 0px 0px 0px 1000px #404040;
+  padding-top: 16px;
+  padding-left: 2px;
+  padding-right: 2px;
 }
