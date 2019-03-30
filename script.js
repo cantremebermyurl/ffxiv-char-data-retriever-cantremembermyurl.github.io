@@ -16,20 +16,42 @@ $.getJSON(
   }
 );
 
-var baseURL = "https://xivapi.com";
+//xivapi lodestone search
+var serverName = "Coeurl";
+var tempObj;
+function search(){
+  characterName = document.getElementById("searchField").value;
+  console.log("=> grab char name("+characterName+") from searchField successful");
+  lodestoneSearch();
+}
+function lodestoneSearch(){
+  console.log("=> running lodestoneSearch()");
+  $.getJSON(
+    "https://xivapi.com/character/search?name=Bread Mage"+ characterName,
+    function(data){
+      console.log("=> search successful: "+data);
+      tempObj = data.Results[0];
+      console.log(tempObj.ID);
+      charID = tempObj.ID;
+    })
+    console.log("=> lodestoneSearch() calling loadXIV()");
+    loadXIV();
+}
+
+function loadXIV(){
+console.log("=> running loadXIV()");
 //xivapi /Character data
 var currentJobID = -1;
-var charID = 23926111;
+var charID = 21374012;
 $.getJSON(
   "https://xivapi.com/Character/" + charID,
   function(data){
-    /*console.log(data);*/
 
     var portrait = data.Character.Portrait;
     var name = data.Character.Name;
     var server = data.Character.Server;
     currentJobID += data.Character.ActiveClassJob.ClassID;
-    //console.log(currentJobID);
+    console.log("=> currentJobID get"+currentJobID);
     var currentLvl = data.Character.ActiveClassJob.Level;
 
     $(".portrait").attr("src", portrait);
@@ -42,17 +64,17 @@ $.getJSON(
   }
 );
 //xivapi /ClassJob using data from /Character
+var obj;
 $.getJSON(
   "https://xivapi.com/ClassJob",
   function(data){
+    console.log("=> data.results[] get"+data.Results[currentJobID]);
+    console.log("=> obj.Name get"+obj.Name);
     var obj = data.Results[currentJobID]
-    //console.log(obj.Name);
-    //console.log(baseURL + obj.Icon);
     var job = obj.Name;
-    var jobIcoURL = baseURL + obj.Icon;
-    //console.log(job);
-    //console.log(jobIcoURL);
+    var jobIcoURL = "https://xivapi.com" + obj.Icon;
     $(".job").append(job);
     $(".jobIcon").attr("src", jobIcoURL);
   }
 );
+}
