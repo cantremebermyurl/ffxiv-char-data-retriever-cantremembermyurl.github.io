@@ -17,64 +17,75 @@ $.getJSON(
 );
 
 //xivapi lodestone search
+var searchAPIFinished = false;
 var serverName = "Coeurl";
 var tempObj;
 function search(){
+    $(".searchingText").text("Searching");
   characterName = document.getElementById("searchField").value;
-  console.log("=> grab char name("+characterName+") from searchField successful");
-  lodestoneSearch();
-}
-function lodestoneSearch(){
-  console.log("=> running lodestoneSearch()");
+    console.log("=> grab char name("+characterName+") from searchField successful");
+  searchAPIFinished = false;
   $.getJSON(
-    "https://xivapi.com/character/search?name=Bread Mage"+ characterName,
-    function(data){
-      console.log("=> search successful: "+data);
+    "https://xivapi.com/character/search?name="+ characterName)
+    .then(function(data){
+      searchAPIFinished = true;
+        $(".searchingText").append(".");
+        console.log("=> search api came up with: "+data.Results[0].Name);
       tempObj = data.Results[0];
-      console.log(tempObj.ID);
       charID = tempObj.ID;
+        console.log("=> charID is now: " + charID);
+      debugSearch();
+      getCharData(charID);
     })
-    console.log("=> lodestoneSearch() calling loadXIV()");
-    loadXIV();
 }
 
-function loadXIV(){
-console.log("=> running loadXIV()");
+function debugSearch(){
+  if (!searchAPIFinished) {
+    console.log("=> search() API call did not go through!");
+  }else {
+    console.log("=> search() ended successfully");
+  }
+}
+var charID = 0;
 //xivapi /Character data
-var currentJobID = -1;
-var charID = 21374012;
-$.getJSON(
-  "https://xivapi.com/Character/" + charID,
-  function(data){
+function getCharData(ID){
+    console.log("getCharData() loaded");
+  var currentJobID = 0;
+    console.log("searching character api for: " + ID);
+  $.getJSON(
+    "https://xivapi.com/Character/" + ID)
+    .then(function(data){
+        console.log("char api successfully loaded: " + data.Name);
+        $(".searchingText").append(".");
+      var portrait = data.Character.Portrait;
+      var name = data.Character.Name;
+      var server = data.Character.Server;
+      currentJobID += data.Character.ActiveClassJob.ClassID;
+        console.log("=> currentJobID get"+currentJobID);
+      var currentLvl = data.Character.ActiveClassJob.Level;
 
-    var portrait = data.Character.Portrait;
-    var name = data.Character.Name;
-    var server = data.Character.Server;
-    currentJobID += data.Character.ActiveClassJob.ClassID;
-    console.log("=> currentJobID get"+currentJobID);
-    var currentLvl = data.Character.ActiveClassJob.Level;
+      $(".portrait").attr("src", portrait);
+      var lodestone = "https://na.finalfantasyxiv.com/lodestone/character/" + ID + "/";
+      $(".portraitURL").attr("href", lodestone);
+      $(".name").text(name);
+      $(".server").text(server);
+      $(".lvl").text("Lv. "+currentLvl);
+        console.log("=> getCharData() calling getJobData()");
+      getJobData(currentJobID);
+    })
+}
 
-    $(".portrait").attr("src", portrait);
-    var lodestone = "https://na.finalfantasyxiv.com/lodestone/character/" + charID + "/";
-    $(".portraitURL").attr("href", lodestone);
-    $(".name").append(name);
-    $(".server").append(server);
-    $(".lvl").append(currentLvl);
-
-  }
-);
 //xivapi /ClassJob using data from /Character
-var obj;
-$.getJSON(
-  "https://xivapi.com/ClassJob",
-  function(data){
-    console.log("=> data.results[] get"+data.Results[currentJobID]);
-    console.log("=> obj.Name get"+obj.Name);
-    var obj = data.Results[currentJobID]
-    var job = obj.Name;
-    var jobIcoURL = "https://xivapi.com" + obj.Icon;
-    $(".job").append(job);
-    $(".jobIcon").attr("src", jobIcoURL);
-  }
-);
+function getJobData(jobData){
+    console.log("getJobData("+jobData+") loaded");
+  $.getJSON(
+    "https://xivapi.com/ClassJob/" + jobData)
+    .then(function(data){
+        $(".searchingText").append(".");
+      var job = data.Name;
+      var jobIcoURL = "https://xivapi.com" + data.Icon;
+      $(".job").text(" "+job);
+      $(".jobIcon").attr("src", jobIcoURL);
+        $(".searchingText").text("");
+    })
 }

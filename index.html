@@ -6,7 +6,7 @@
     <title>HELLO TAB!</title>
   <link rel="icon" href="favicon.ico">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script type="text/javascript" src="script.js">loadXIV();</script>
+  <script src="script.js"></script>
   <script type="text/javascript">
     function active(){
       var searchField = document.getElementById('searchField');
@@ -26,7 +26,11 @@
       <span>°F</span>
     </p>
   </div>
-  <div class="xivapi-container">
+  <div id="xivapi-container">
+    <script type="text/javascript">
+      getCharData(21366078);
+      console.log("=> calling getCharData(); from xivapi-container");
+    </script>
     <span class="xivapiURL">
       <p>xivapi link</p>
       <a href="https://xivapi.com/">
@@ -35,28 +39,28 @@
     </span>
     <h1>Final Fantasy XIV API Test</h1>
     <p>
-<<<<<<< HEAD
-      <form class="xivCharSearch" action="#" onsubmit="return search(this) && loadXIV();" method="post">
+      <form class="xivCharSearch" action="#" onsubmit="search(this);return false" method="post">
         <input type="text" id="searchField" placeholder="Search your character" value="Search your character" onmousedown="active();"/><input type="submit" id="searchButton" value="Search">
       </form>
+      <span class="searchingText"></span>
     </p>
     <p>
       <a class="portraitURL" href="">
-=======
       <a class="portraitURL">
->>>>>>> parent of ab88bbe... trying to get attr() to work
         <img class="portrait" alt="character portrait" style="width:256px;height:349px;">
       </a>
     </p>
     <p>
-      <b><span class="name"/></span></b>.
+      <b><span class="name"/></span></b>
     </p>
     <p class="charInfo">
-      <span class="lvl">Lvl </span>
-      <span class="job"> </span>
-      <img class="jobIcon" alt="job icon" style="width:16px;height:16px;">
+      <span id=charInfo>
+        <span class="lvl">Lv. </span>
+        <span class="job"> </span>
+        <img class="jobIcon" alt="job icon" style="width:24px;height:24px;">
+      </span>
     </p>
-    <p class="server">Server: </p>
+    <span class="server">Server: </span>
   </div>
 </body>
 </html>
