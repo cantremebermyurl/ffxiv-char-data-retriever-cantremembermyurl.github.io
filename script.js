@@ -16,43 +16,76 @@ $.getJSON(
   }
 );
 
-var baseURL = "https://xivapi.com";
+//xivapi lodestone search
+var searchAPIFinished = false;
+var serverName = "Coeurl";
+var tempObj;
+function search(){
+    $(".searchingText").text("Searching");
+  characterName = document.getElementById("searchField").value;
+    console.log("=> grab char name("+characterName+") from searchField successful");
+  searchAPIFinished = false;
+  $.getJSON(
+    "https://xivapi.com/character/search?name="+ characterName)
+    .then(function(data){
+      searchAPIFinished = true;
+        $(".searchingText").append(".");
+        console.log("=> search api came up with: "+data.Results[0].Name);
+      tempObj = data.Results[0];
+      charID = tempObj.ID;
+        console.log("=> charID is now: " + charID);
+      debugSearch();
+      getCharData(charID);
+    })
+}
+
+function debugSearch(){
+  if (!searchAPIFinished) {
+    console.log("=> search() API call did not go through!");
+  }else {
+    console.log("=> search() ended successfully");
+  }
+}
+var charID = 0;
 //xivapi /Character data
-var currentJobID = -1;
-var charID = 21374013;
-$.getJSON(
-  "https://xivapi.com/Character/" + charID,
-  function(data){
-    /*console.log(data);*/
+function getCharData(ID){
+    console.log("getCharData() loaded");
+  var currentJobID = 0;
+    console.log("searching character api for: " + ID);
+  $.getJSON(
+    "https://xivapi.com/Character/" + ID)
+    .then(function(data){
+        console.log("char api successfully loaded: " + data.Name);
+        $(".searchingText").append(".");
+      var portrait = data.Character.Portrait;
+      var name = data.Character.Name;
+      var server = data.Character.Server;
+      currentJobID += data.Character.ActiveClassJob.ClassID;
+        console.log("=> currentJobID get"+currentJobID);
+      var currentLvl = data.Character.ActiveClassJob.Level;
 
-    var portrait = data.Character.Portrait;
-    var name = data.Character.Name;
-    var server = data.Character.Server;
-    currentJobID += data.Character.ActiveClassJob.ClassID;
-    //console.log(currentJobID);
-    var currentLvl = data.Character.ActiveClassJob.Level;
+      $(".portrait").attr("src", portrait);
+      var lodestone = "https://na.finalfantasyxiv.com/lodestone/character/" + ID + "/";
+      $(".portraitURL").attr("href", lodestone);
+      $(".name").text(name);
+      $(".server").text(server);
+      $(".lvl").text("Lv. "+currentLvl);
+        console.log("=> getCharData() calling getJobData()");
+      getJobData(currentJobID);
+    })
+}
 
-    $(".portrait").attr("src", portrait);
-    var lodestone = "https://na.finalfantasyxiv.com/lodestone/character/" + charID + "/";
-    $(".portraitURL").attr("href", lodestone);
-    $(".name").append(name);
-    $(".server").append(server);
-    $(".lvl").append(currentLvl);
-
-  }
-);
 //xivapi /ClassJob using data from /Character
-$.getJSON(
-  "https://xivapi.com/ClassJob",
-  function(data){
-    var obj = data.Results[currentJobID]
-    //console.log(obj.Name);
-    //console.log(baseURL + obj.Icon);
-    var job = obj.Name;
-    var jobIcoURL = baseURL + obj.Icon;
-    //console.log(job);
-    //console.log(jobIcoURL);
-    $(".job").append(job);
-    $(".jobIcon").attr("src", jobIcoURL);
-  }
-);
+function getJobData(jobData){
+    console.log("getJobData("+jobData+") loaded");
+  $.getJSON(
+    "https://xivapi.com/ClassJob/" + jobData)
+    .then(function(data){
+        $(".searchingText").append(".");
+      var job = data.Name;
+      var jobIcoURL = "https://xivapi.com" + data.Icon;
+      $(".job").text(" "+job);
+      $(".jobIcon").attr("src", jobIcoURL);
+        $(".searchingText").text("");
+    })
+}

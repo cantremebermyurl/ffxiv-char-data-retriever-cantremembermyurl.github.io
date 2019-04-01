@@ -30,7 +30,7 @@ body, html{
   position: relative;
   right: calc(50% - 46px);
 }
-.xivapi-container{
+#xivapi-container{
   background-image: url(https://i.imgur.com/bscjsyW.jpg);
   background-color: #ccc;
   background-position: center;
@@ -46,15 +46,19 @@ body, html{
         0 -0.07em black;
 }
 .name{
+  box-shadow: inset 0px 0px 0px 1000px #404040;
   font-size: 30px;
   margin: 0;
   font-weight: bold;
 }
-.charInfo{
-  font-size: 16px;
-  margin: 0;
+#charInfo{
+  box-shadow: inset 0px 0px 0px 1000px #404040;
+  font-size: 24px;
+  padding-top: 4px;
+  margin: 0px;
 }
 .server{
+  box-shadow: inset 0px 0px 0px 1000px #404040;
   font-size: 16px;
   margin: 1;
   padding-bottom: 5px;
