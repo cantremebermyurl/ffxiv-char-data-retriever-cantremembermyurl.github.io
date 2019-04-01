@@ -19,7 +19,7 @@ $.getJSON(
 var baseURL = "https://xivapi.com";
 //xivapi /Character data
 var currentJobID = -1;
-var charID = 23926111;
+var charID = 21374013;
 $.getJSON(
   "https://xivapi.com/Character/" + charID,
   function(data){
