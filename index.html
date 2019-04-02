@@ -17,19 +17,22 @@
 
 <body class="bg">
   <div class="weather-container">
+    <script type="text/javascript">
+      getWeather("Alameda");
+      console.log("=> calling getWeather(Alameda) from weather-container");
+    </script>
     <h1><a href="https://www.openweathermap.org">OpenWeatherMap</a> API test</h1>
     <h1>Alameda</h1>
     <img class="icon" alt="weather icon">
     <p class="weather"></p>
     <p>
-      <span class="temp"></span>
-      <span>°F</span>
+      <span class="temp"></span> °F
     </p>
   </div>
   <div id="xivapi-container">
     <script type="text/javascript">
       getCharData(21366078);
-      console.log("=> calling getCharData(); from xivapi-container");
+      console.log("=> calling getCharData(21366078); from xivapi-container");
     </script>
     <span class="xivapiURL">
       <p>xivapi link</p>
