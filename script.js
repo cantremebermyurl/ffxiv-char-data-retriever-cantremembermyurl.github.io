@@ -28,14 +28,18 @@ function search(){
   $.getJSON(
     "https://xivapi.com/character/search?name="+ characterName)
     .then(function(data){
-      searchAPIFinished = true;
-        $(".searchingText").append(".");
-        console.log("=> search api came up with: "+data.Results[0].Name);
-      tempObj = data.Results[0];
-      charID = tempObj.ID;
-        console.log("=> charID is now: " + charID);
-      debugSearch();
-      getCharData(charID);
+      try {
+        searchAPIFinished = true;
+          $(".searchingText").append(".");
+          console.log("=> search api came up with: "+data.Results[0].Name);
+        tempObj = data.Results[0];
+        charID = tempObj.ID;
+          console.log("=> charID is now: " + charID);
+        debugSearch();
+        getCharData(charID);
+      } catch (e) {
+        $(".searchingText").text("Search failed! Try searching for an actual FFXIV character!");
+      }
     })
 }
 
@@ -55,10 +59,11 @@ function getCharData(ID){
   $.getJSON(
     "https://xivapi.com/Character/" + ID)
     .then(function(data){
-        console.log("char api successfully loaded: " + data.Name);
+      var name = data.Character.Name;
+        console.log("char api successfully loaded: " + name);
         $(".searchingText").append(".");
       var portrait = data.Character.Portrait;
-      var name = data.Character.Name;
+
       var server = data.Character.Server;
       currentJobID += data.Character.ActiveClassJob.ClassID;
         console.log("=> currentJobID get"+currentJobID);
