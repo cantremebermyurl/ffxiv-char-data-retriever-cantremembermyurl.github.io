@@ -13,8 +13,8 @@ a:hover, a:active { text-decoration: none; color:white }
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-
 }
+
 .weather-container{
   background: #ccc url(https://i.imgur.com/Dxa7Iak.png) center no-repeat;
   text-align: center;
@@ -119,20 +119,68 @@ a:hover, a:active { text-decoration: none; color:white }
   padding-left: 2px;
   padding-right: 2px;
 }
+
 .row{
   display: flex;
   justify-content: center;
   width: 100%;
   font-size: 18px;
 }
+
+/*If browser window width too thin*/
+@media (max-width: 1080px) {
+  .bg {
+    background-color: #2D3D5A;
+  }
+  .row{
+    flex-wrap: wrap;
+  }
+  .leftBuffer:nth-of-type(1) {
+    order: 2;
+    flex: 1 0 10%;
+  }
+  .leftColumn:nth-of-type(2) {
+    order: 2;
+    flex: 1 0 40%;
+  }
+  .centerColumn:nth-of-type(3) {
+    order: -1;
+    flex: 1 0 100%;
+  }
+  .rightColumn:nth-of-type(4) {
+    order: 2;
+    flex: 1 0 40%;
+  }
+  .rightBuffer:nth-of-type(5) {
+    order: 2;
+    flex: 1 0 10%;
+  }
+}
+
+.centerColumn{
+  width: 30%;
+}
 .leftColumn{
   text-align: right;
-  width: 33%;
-}
-.centerColumn{
-  width: 33%;
+  width: 25%;
 }
 .rightColumn{
   text-align: left;
-  width: 33%;
+  width: 25%;
+}
+.leftBuffer{
+  width: 10%;
+}
+.rightBuffer{
+  width: 10%;
+}
+.equipmentL{
+  box-shadow: inset 0px 0px 0px 1000px #404040;
+  padding-top: 4px;
+  padding-right: 4px;
+}
+.equipmentR{
+  box-shadow: inset 0px 0px 0px 1000px #404040;
+  padding-top: 4px;
+  padding-left: 4px;
 }

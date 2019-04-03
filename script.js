@@ -135,10 +135,10 @@ function getEquipment(url){
         gearIcon = data.Icon;
         //console.log("Icon:"+gearIcon);
         if (n < 7) {
-          $(".leftColumn").append($("<p>"+gearName+"     <img src=\"https://xivapi.com"+gearIcon+"\" alt=\""+gearName+"\" style=\"width:32px;height:32px;\"></p>"));
+          $(".leftColumn").append($("<p class=\"equipmentL\">"+gearName+"     <img src=\"https://xivapi.com"+gearIcon+"\" alt=\""+gearName+"\" style=\"width:32px;height:32px;\"></p>"));
           n++;
         }else {
-          $(".rightColumn").append($("<p><img src=\"https://xivapi.com"+gearIcon+"\" alt=\""+gearName+"\" style=\"width:32px;height:32px;\">     "+gearName+"</p>"));
+          $(".rightColumn").append($("<p class=\"equipmentR\"><img src=\"https://xivapi.com"+gearIcon+"\" alt=\""+gearName+"\" style=\"width:32px;height:32px;\">     "+gearName+"</p>"));
         }
       });
     })
