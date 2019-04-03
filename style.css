@@ -1,9 +1,13 @@
-/*weather api*/
-body, html{
-  height: 100%;
-}
+a { color:white } /* Globally */
+
+/* Each state */
+
+a:visited { text-decoration: none; color:white; }
+a:hover { text-decoration: none; color:white; }
+a:focus { text-decoration: none; color:white; }
+a:hover, a:active { text-decoration: none; color:white }
+
 .bg{
-  /*background-image: url(https://i.imgur.com/Rwrbnto.jpg);*/
   background-color: #46608c;
   height: 100%;
   background-position: center;
@@ -95,31 +99,40 @@ body, html{
   padding-bottom: 5px;
 }
 
-/*footer*/
 .footer{
-  background: #ccc;
   text-align: center;
   font-size: 16px;
-  color: white;
     font-size: 20px;
     text-shadow:
         0.07em 0 black,
         0 0.07em black,
         -0.07em 0 black,
         0 -0.07em black;
-
   margin-top: 5px;
   padding-top: 1px;
   padding-bottom: 1px;
-  background-image: url(https://i.imgur.com/wncFFD3.png);
-  background-position: center;
-  background-repeat: repeat;
-  background-size: 4%;
-
 }
+
 .githubIcon{
   box-shadow: inset 0px 0px 0px 1000px #404040;
   padding-top: 16px;
   padding-left: 2px;
   padding-right: 2px;
+}
+.row{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: 18px;
+}
+.leftColumn{
+  text-align: right;
+  width: 33%;
+}
+.centerColumn{
+  width: 33%;
+}
+.rightColumn{
+  text-align: left;
+  width: 33%;
 }

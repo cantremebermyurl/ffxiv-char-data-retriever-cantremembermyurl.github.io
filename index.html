@@ -31,12 +31,13 @@
   </div>
   <div id="xivapi-container">
     <script type="text/javascript">
+      populateServerList();
       getCharData(21366078);
       console.log("=> calling getCharData(21366078); from xivapi-container");
     </script>
     <span class="xivapiURL">
-      <p>xivapi link</p>
       <a href="https://xivapi.com/">
+        <p>xivapi link</p>
         <img src="https://xivapi.com/img-misc/Mendacity.png" alt="xivapi icon">
       </a>
     </span>
@@ -52,34 +53,44 @@
       </form>
       <span class="searchingText"></span>
     </p>
-    <p>
-      <a class="portraitURL" href="">
-      <a class="portraitURL">
-        <img class="portrait" alt="character portrait" style="width:256px;height:349px;">
-      </a>
-    </p>
-    <p>
-      <b><span class="name"/></span></b>
-    </p>
-    <p class="charInfo">
-      <span id=charInfo>
-        <span class="lvl">Lv. </span>
-        <span class="job"> </span>
-        <img class="jobIcon" alt="job icon" style="width:24px;height:24px;">
-      </span>
-    </p>
-    <span class="server">Server: </span>
+    <div class="row">
+      <div class="leftColumn">
+        <p id="equipmentL"></p>
+      </div>
+      <div class="centerColumn">
+        <p>
+          <a class="portraitURL" href="">
+          <a class="portraitURL">
+            <img class="portrait" alt="character portrait" style="width:256px;height:349px;">
+          </a>
+        </p>
+        <p>
+          <b><span class="name"/></span></b>
+        </p>
+        <p>
+          <span id="charInfo">
+            <span class="lvl">Lv. </span>
+            <span class="job"> </span>
+            <img class="jobIcon" alt="job icon" style="width:24px;height:24px;">
+          </span>
+        </p>
+        <span class="server">Server: </span>
+      </div>
+      <div class="rightColumn">
+        <p id="equipmentR"></p>
+      </div>
+    </div>
   </div>
 </body>
 </html>
-<a href="https://github.com/cantremebermyurl">
-  <footer class="footer">
+<footer class="footer">
+  <a href="https://github.com/cantremebermyurl">
     <p>
       <span class="githubIcon">
         <img src="GitHub-Mark-32px.png" alt="GitHub cat png">
-        Click Me
+        git: 'link' is not a git command. See 'git --help'.
         <img src="GitHub-Mark-32px.png" alt="GitHub cat png">
       </span>
     </p>
-  </footer>
-</a>
+  </a>
+</footer>
