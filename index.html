@@ -2,9 +2,10 @@
 <html lang="en">
 
 <head>
-  <link rel="stylesheet" type="text/css" href="style.css" />
+  <meta charset="utf-8">
   <title>HELLO TAB!</title>
-  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <link rel="icon" href="favicon.ico"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="script.js"></script>
   <script type="text/javascript">
@@ -13,6 +14,11 @@
       searchField.value = '';
     }
   </script>
+  <div class="links">
+    <a class="home" href="./index.html">Home</a>
+    <a class="XIV" href="./XIV.html">FFXIV character search</a>
+    <a class="about" href="https://github.com/cantremebermyurl/cantremembermyurl.github.io#cantremembermyurlgithubio" target="_blank">About</a>
+  </div>
 </head>
 
 <body class="bg">
@@ -21,67 +27,13 @@
       getWeather("Alameda");
       console.log("=> calling getWeather(Alameda) from weather-container");
     </script>
-    <h1><a href="https://www.openweathermap.org">OpenWeatherMap</a> API test</h1>
+    <h1><a href="https://www.openweathermap.org">OpenWeatherMap</a> API</h1>
     <h1>Alameda</h1>
     <img class="icon" alt="weather icon">
     <p class="weather"></p>
     <p>
       <span class="temp"></span> °F
     </p>
-  </div>
-  <div id="xivapi-container">
-    <script type="text/javascript">
-      populateServerList();
-      getCharData(21366078);
-      console.log("=> calling getCharData(21366078); from xivapi-container");
-    </script>
-    <span class="xivapiURL">
-      <a href="https://xivapi.com/">
-        <p>xivapi link</p>
-        <img src="https://xivapi.com/img-misc/Mendacity.png" alt="xivapi icon">
-      </a>
-    </span>
-    <h1>Final Fantasy XIV API Test</h1>
-    <p>
-      <form class="xivCharSearch" action="#" onsubmit="search(this);return false" method="post">
-        <input type="text" id="searchField" placeholder="Search your character" value="Search your character" onmousedown="active();"/><input type="submit" id="searchButton" value="Search">
-        <p>
-          <select id="serverList" selected="-Choose a server-">
-            <option value="">-Choose a server-</option>
-          </select>
-        </p>
-      </form>
-      <span class="searchingText"></span>
-    </p>
-    <div class="row">
-      <div class="leftBuffer">
-      </div>
-      <div class="leftColumn">
-      </div>
-      <div class="centerColumn">
-        <p>
-          <a class="portraitURL" href="">
-          <a class="portraitURL">
-            <img class="portrait" alt="character portrait" style="width:256px;height:349px;">
-          </a>
-        </p>
-        <p>
-          <b><span class="name"/></span></b>
-        </p>
-        <p>
-          <span id="charInfo">
-            <span class="lvl">Lv. </span>
-            <span class="job"> </span>
-            <img class="jobIcon" alt="job icon" style="width:24px;height:24px;">
-          </span>
-        </p>
-        <span class="server">Server: </span>
-      </div>
-      <div class="rightColumn">
-      </div>
-      <div class="rightBuffer">
-      </div>
-    </div>
   </div>
 </body>
 </html>
@@ -90,7 +42,7 @@
     <p>
       <span class="githubIcon">
         <img src="GitHub-Mark-32px.png" alt="GitHub cat png">
-        git: 'link' is not a git command. See 'git --help'.
+        git: 'hub' is not a git command. See 'git --help'.
         <img src="GitHub-Mark-32px.png" alt="GitHub cat png">
       </span>
     </p>
