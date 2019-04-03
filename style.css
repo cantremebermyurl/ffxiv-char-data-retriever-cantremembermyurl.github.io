@@ -32,7 +32,7 @@ a:hover, a:active { text-decoration: none; color:white }
 /*xivapi*/
 .xivapiURL{
   position: relative;
-  right: calc(50% - 46px);
+  right: calc(50% - 52px);
 }
 #xivapi-container{
   background-image: url(https://i.imgur.com/bscjsyW.jpg);
