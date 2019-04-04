@@ -101,12 +101,15 @@ function populateServerList(){
   //https://www.codebyamir.com/blog/populate-a-select-dropdown-list-with-json <= base code
   $("#serverList").append("<option selected=\"true\" disabled>Choose server</option>");
   $("#serverList").prop("selectedIndex", 0);
-  var url = "https://xivapi.com/servers";
+  var url = "https://xivapi.com/servers/dc";
   $("#serverList").append($("<option></option>").attr("value", "TestValue").text("TestText"));
   // Populate dropdown with list of provinces
   $.getJSON(url, function (data) {
     $.each(data, function (key, entry) {
-      $("#serverList").append($("<option></option>").attr("value", entry).text(entry));
+      $("#serverList").append($("<option></option>").attr("value", "").text("---"+key+"---"));
+      $.each(entry, function (key, server){
+        $("#serverList").append($("<option></option>").attr("value", server).text(server));
+      })
     })
   });
   //set default server displayed to Goblin
