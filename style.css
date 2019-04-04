@@ -20,7 +20,7 @@ a {
   flex-wrap: wrap;
   justify-content: space-around;
   width: 100%;
-  font-size: 24px;
+  font-size: 32px;
   box-shadow: inset 0px 0px 0px 1000px #5599cc;
 }
 .home{
@@ -160,7 +160,7 @@ a {
 /*If browser window width too thin*/
 @media (max-width: 900px) {
   .bg {
-    background-color: #2D3D5A;
+    /*background-color: #2D3D5A;*/
   }
   .row{
     flex-wrap: wrap;
