@@ -60,11 +60,11 @@ function getCharData(ID){
         var portrait = data.Character.Portrait;
 
         var server = data.Character.Server;
-        currentJobID += data.Character.ActiveClassJob.ClassID;
+        currentJobID += data.Character.ActiveClassJob.JobID;
           //console.log("=> currentJobID("+currentJobID+")");
         var currentLvl = data.Character.ActiveClassJob.Level;
 
-        $(".portrait").attr("src", portrait);
+        $(".portraitImg").attr("src", portrait);
         var lodestone = "https://na.finalfantasyxiv.com/lodestone/character/" + ID + "/";
         $(".portraitURL").attr("href", lodestone);
         $(".name").text(name);
@@ -87,11 +87,11 @@ function getJobData(jobData){
     "https://xivapi.com/ClassJob/" + jobData)
     .then(function(data){
         $(".searchingText").append(".");
-      var job = data.Name;
+      var jobEN = data.NameEnglish;
         //console.log("=> get API /ClassJob/"+jobData+" successful, job("+job+")");
-      var jobIcoURL = "https://xivapi.com" + data.Icon;
-      $(".job").text(" "+job);
-      $(".jobIcon").attr("src", jobIcoURL);
+      var job = data.Name;
+      $(".job").text(" "+jobEN);
+      $(".jobIcon").attr("src", "https://xivapi.com/cj/companion/"+ job +".png");
         $(".searchingText").text("");
     })
 }
@@ -106,28 +106,28 @@ function populateServerList(){
   // Populate dropdown with list of provinces
   $.getJSON(url, function (data) {
     $.each(data, function (key, entry) {
-      $("#serverList").append($("<option></option>").attr("value", "").text("---"+key+"---"));
+      $("#serverList").append($("<option></option>").attr("value", "").text("---"+key+" Datacenter---"));
       $.each(entry, function (key, server){
         $("#serverList").append($("<option></option>").attr("value", server).text(server));
       })
     })
   });
-  //set default server displayed to Goblin
-  $("#serverList").attr("selected", "Goblin");
+  //set default server displayed to Coeurl
+  $("#serverList").attr("selected", "Coeurl");
 }
 
 //populate #equipment list
 function getEquipment(url){
   //console.log("=> getEquipment("+url+")");
-  $(".leftColumn").empty();
-  $(".rightColumn").empty();
+  $(".leftEquipment").empty();
+  $(".leftItemIcon").empty();
+  $(".rightEquipment").empty();
+  $(".rightItemIcon").empty();
   var obj;
   $.getJSON(url,
   function (data) {
     obj = data.Character.GearSet.Gear;
     //console.log(obj);
-    var gearName;
-    var gearIcon;
     var n = 0;
     $.each(obj, function (key, entry) {
       //console.log(entry.ID);
@@ -137,11 +137,24 @@ function getEquipment(url){
         //console.log("Name:"+gearName);
         gearIcon = data.Icon;
         //console.log("Icon:"+gearIcon);
-        if (n < 7) {
-          $(".leftColumn").append($("<p class=\"equipmentL\">"+gearName+"     <img src=\"https://xivapi.com"+gearIcon+"\" alt=\""+gearName+"\" style=\"width:32px;height:32px;\"></p>"));
-          n++;
-        }else {
-          $(".rightColumn").append($("<p class=\"equipmentR\"><img src=\"https://xivapi.com"+gearIcon+"\" alt=\""+gearName+"\" style=\"width:32px;height:32px;\">     "+gearName+"</p>"));
+        gearUI_PNG = data.ItemUICategory.Icon;
+        gearUI_Name = data.ItemUICategory.Name;
+        try {
+          if (n < 7) {
+            $(".leftEquipment").append($("<p class=\"equipmentL\">"+gearName+"     <img src=\"https://xivapi.com"+gearIcon+"\" alt=\""+gearName+"\" style=\"width:32px;height:32px;\"></p>"));
+            $(".leftItemIcon").append("<p class =\"itemIconL\">"+gearUI_Name+"<img src=https://xivapi.com"+gearUI_PNG+"></p>");
+            n++;
+          }else {
+            $(".rightEquipment").append($("<p class=\"equipmentR\"><img src=\"https://xivapi.com"+gearIcon+"\" alt=\""+gearName+"\" style=\"width:32px;height:32px;\">     "+gearName+"</p>"));
+            $(".rightItemIcon").append("<p class =\"itemIconR\"><img src=https://xivapi.com"+gearUI_PNG+">"+gearUI_Name+"</p>");
+          }
+        } catch (e) {
+          if (n < 7) {
+            $(".leftEquipment").append($("<p class=\"equipmentL\">API call failed     <img src=\"https://xivapi.com/img-misc/lodestone/status.png\" style=\"width:32px;height:32px;\"></p>"));
+            n++;
+          }else {
+            $(".rightEquipment").append($("<p class=\"equipmentR\"><img src=\"https://xivapi.com/img-misc/lodestone/status.png\" style=\"width:32px;height:32px;\">     API call failed</p>"));
+          }
         }
       });
     })

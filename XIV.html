@@ -10,7 +10,8 @@
     <script type="text/javascript">
       function active(){
         var searchField = document.getElementById("searchField");
-        searchField.value = "";
+        if(searchField.value == "Search your character")
+          searchField.value = "";
       }
     </script>
     <div class="links">
@@ -37,40 +38,43 @@
         <form class="xivCharSearch" action="#" onsubmit="search(this);return false" method="post">
           <input type="text" id="searchField" placeholder="Search your character" value="Search your character" onmousedown="active();"/><input type="submit" id="searchButton" value="Search">
           <p>
-            <select id="serverList" selected="-Choose a server-">
+            <select id="serverList" selected="">
               <option value="">-Choose a server-</option>
             </select>
           </p>
         </form>
         <span class="searchingText"></span>
       </p>
-      <div class="row">
-        <div class="leftBuffer">
-        </div>
+      <div class="characterInfoRow">
         <div class="leftColumn">
+          <div class="leftEquipment">
+          </div>
+          <div class="leftItemIcon">
+          </div>
         </div>
         <div class="centerColumn">
-          <p>
-            <a class="portraitURL" href="">
-            <a class="portraitURL">
-              <img class="portrait" alt="character portrait" style="width:256px;height:349px;">
-            </a>
+          <p class="portrait">
+            <a class="portraitURL" href=""><img class="portraitImg" alt="character portrait" style="width:256px;height:349px;"></a>
           </p>
-          <p>
+          <p class="pName">
             <b><span class="name"/></span></b>
           </p>
-          <p>
+          <p class="pCharInfo">
             <span id="charInfo">
               <span class="lvl">Lv. </span>
               <span class="job"> </span>
               <img class="jobIcon" alt="job icon" style="width:24px;height:24px;">
             </span>
           </p>
-          <span class="server">Server: </span>
+          <p class="pServer">
+            <span class="server">Server: </span>
+          </p>
         </div>
         <div class="rightColumn">
-        </div>
-        <div class="rightBuffer">
+          <div class="rightItemIcon">
+          </div>
+          <div class="rightEquipment">
+          </div>
         </div>
       </div>
     </div>
