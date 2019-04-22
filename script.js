@@ -144,9 +144,11 @@ function getEquipment(url){
           if (0 < gearUI_ID && gearUI_ID < 11 || 33 < gearUI_ID && gearUI_ID < 40) {
             $(".leftEquipment").append($("<p class=\"equipmentL"+gearUI_ID+"\">"+gearName+" <img src=\"https://xivapi.com"+gearIcon+"\" alt=\""+gearName+"\" style=\"width:32px;height:32px;\"></p>"));
             $(".leftItemIcon").append("<p class =\"itemIconL"+gearUI_ID+"\">"+gearUI_Name+" <img src=https://xivapi.com"+gearUI_PNG+">"+gearUI_ID+"</p>");
+            console.log("=> got gear with ID: "+gearUI_ID+"("+gearUI_Name+")");
           }else {
             $(".rightEquipment").append($("<p class=\"equipmentR"+gearUI_ID+"\"><img src=\"https://xivapi.com"+gearIcon+"\" alt=\""+gearName+"\" style=\"width:32px;height:32px;\"> "+gearName+"</p>"));
             $(".rightItemIcon").append("<p class =\"itemIconR"+gearUI_ID+"\">"+gearUI_ID+"<img src=https://xivapi.com"+gearUI_PNG+"> "+gearUI_Name+"</p>");
+            console.log("=> got gear with ID: "+gearUI_ID+"("+gearUI_Name+")");
           }
         } catch (e) {
           if (n % 2 == 1) {
