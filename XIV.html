@@ -13,6 +13,11 @@
         if(searchField.value == "Search your character")
           searchField.value = "";
       }
+      function inactive(){
+        var searchField = document.getElementById("searchField");
+        if(searchField.value == "")
+          searchField.value = "Search your character";
+      }
     </script>
     <div class="links">
       <a class="home" href="./index.html">Home</a>
@@ -36,7 +41,7 @@
       <h1>Final Fantasy XIV API Test</h1>
       <p>
         <form class="xivCharSearch" action="#" onsubmit="search(this);return false" method="post">
-          <input type="text" id="searchField" placeholder="Search your character" value="Search your character" onmousedown="active();"/><input type="submit" id="searchButton" value="Search">
+          <input type="text" id="searchField" placeholder="Search your character" value="Search your character" onmousedown="active();" onblur="inactive();"/><input type="submit" id="searchButton" value="Search">
           <p>
             <select id="serverList" selected="">
               <option value="">-Choose a server-</option>

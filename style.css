@@ -179,70 +179,100 @@ a {
 .leftColumn{
   text-align: right;
   display: flex;
+  align-self: flex-start;
 }
 .rightColumn{
   text-align: left;
   display: flex;
+  align-items: flex-start;
 }
-.equipmentL{
-  box-shadow: inset 0px 0px 0px 1000px #404040;
+/*light grey*/
+.leftItemIcon :nth-of-type(2n+0){
+  box-shadow: inset 0px 0px 0px 1000px #606060;
   padding-left: 4px;
   padding-top: 4px;
+  padding-bottom: 2px;
   margin-top:auto;
   margin-bottom:auto;
 }
-.equipmentR{
-  box-shadow: inset 0px 0px 0px 1000px #404040;
+.leftEquipment :nth-of-type(2n+0){
+  box-shadow: inset 0px 0px 0px 1000px #606060;
+  padding-left: 4px;
+  margin-top:auto;
+  margin-bottom:auto;
+}
+.rightItemIcon :nth-of-type(2n+0){
+  box-shadow: inset 0px 0px 0px 1000px #606060;
   padding-right: 4px;
   padding-top: 4px;
+  padding-bottom: 2px;
   margin-top:auto;
   margin-bottom:auto;
 }
-.itemIconL{
-  box-shadow: inset 0px 0px 0px 1000px #404040;
-  padding-left: 4px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  margin-top:auto;
-  margin-bottom:auto;
-}
-.itemIconR{
-  box-shadow: inset 0px 0px 0px 1000px #404040;
+.rightEquipment :nth-of-type(2n+0){
+  box-shadow: inset 0px 0px 0px 1000px #606060;
   padding-right: 4px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  margin-top:auto;
+  margin-bottom:auto;
+}
+/*dark grey*/
+.leftItemIcon :nth-of-type(2n+1){
+  box-shadow: inset 0px 0px 0px 1000px #404040;
+  padding-left: 0px;
+  padding-top: 4px;
+  padding-bottom: 2px;
+  margin-top:auto;
+  margin-bottom:auto;
+}
+.leftEquipment :nth-of-type(2n+1){
+  box-shadow: inset 0px 0px 0px 1000px #404040;
+  padding-left: 0px;
+  margin-top:auto;
+  margin-bottom:auto;
+}
+.rightItemIcon :nth-of-type(2n+1){
+  box-shadow: inset 0px 0px 0px 1000px #404040;
+  padding-right: 0px;
+  padding-top: 4px;
+  padding-bottom: 2px;
+  margin-top:auto;
+  margin-bottom:auto;
+}
+.rightEquipment :nth-of-type(2n+1){
+  box-shadow: inset 0px 0px 0px 1000px #404040;
+  padding-right: 0px;
   margin-top:auto;
   margin-bottom:auto;
 }
 /*If browser window width too thin*/
-@media (max-width: 900px) {
+@media (max-width: 1080px) {
   .bg {
     /*background-color: #2D3D5A;*/
   }
   .characterInfoRow{
     flex-wrap: wrap;
   }
-  .leftColumn:nth-of-type(1) {
+  .leftColumn{
     order: 2;
   }
-  .centerColumn:nth-of-type(2) {
+  .centerColumn{
     order: -1;
     margin-top: auto;
     flex: 0 0 100%;
   }
-  .rightColumn:nth-of-type(3) {
+  .rightColumn{
     order: 3;
   }
-  .leftEquipment:nth-of-type(1){
+  .leftEquipment{
     order: 1;
   }
-  .leftItemIcon:nth-of-type(2){
+  .leftItemIcon{
     order: 2;
   }
-  .rightItemIcon:nth-of-type(1){
+  .rightItemIcon{
     order: 1;
   }
-  .rightEquipment:nth-of-type(2){
+  .rightEquipment{
     order: 2;
   }
 }
