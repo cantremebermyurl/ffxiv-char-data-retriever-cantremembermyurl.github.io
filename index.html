@@ -8,6 +8,19 @@
   <link rel="icon" href="favicon.ico"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="script.js"></script>
+  <script type="text/javascript">
+    function active(){
+      if(googleSearchField.value == "Click here, search the internet")
+        googleSearchField.value = "";
+    }
+    function inactive(){
+      if(googleSearchField.value == "")
+        googleSearchField.value = "Click here, search the internet";
+    }
+    function googleSearch() {
+      window.open("https://google.com/search?q="+googleSearchField.value);
+    }
+  </script>
   <div class="links">
     <a class="home" href="./index.html">Home</a>
     <a class="XIV" href="./XIV.html">FFXIVapi</a>
@@ -28,6 +41,14 @@
     <p>
       <span class="temp"></span> °F
     </p>
+  </div>
+  <div class="search-container">
+    <form class="searchBar" action="#" onsubmit="googleSearch(this);return false" method="post">
+    <input type="text" id="googleSearchField" placeholder="Click here, search the internet" value="Click here, search the internet" onmousedown="active();" onblur="inactive();"/>
+    <p class="googleSearchButton">
+      <input type="submit" id="googleSearchButton" value="Google Search">
+    </p>
+    </form>
   </div>
 </body>
 </html>
