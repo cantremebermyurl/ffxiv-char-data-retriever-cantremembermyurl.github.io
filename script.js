@@ -21,9 +21,9 @@ function search(){
   serverName = e.options[e.selectedIndex].value;
     $(".searchingText").text("Searching");
   characterName = document.getElementById("searchField").value;
-  $.getJSON(
-    "https://xivapi.com/character/search?name="+ characterName+"&server="+serverName)
-    .then(function(data){
+  try {
+    $.getJSON("https://xivapi.com/character/search?name="+ characterName+"&server="+serverName)
+    .success(function(data){
       try {
           $(".searchingText").append(".");
         tempObj = data.Results[0];
@@ -33,6 +33,12 @@ function search(){
         $(".searchingText").text("Search failed! Did you put in the correct Character Name and Server?");
       }
     })
+    .error(function() {
+      $(".searchingText").text("Search failed! XIVAPI Service Error");
+    })
+  } catch (e) {
+    console.log("!!! something went wrong: "+e);
+  }
 }
 
 var charID = 0;
@@ -99,7 +105,6 @@ function populateServerList(){
 
 //populate #equipment list
 function getEquipment(url){
-  //console.log("=> getEquipment("+url+")");
   $(".leftEquipment").empty();
   $(".leftItemIcon").empty();
   $(".rightEquipment").empty();
@@ -108,36 +113,35 @@ function getEquipment(url){
   $.getJSON(url,
   function (data) {
     obj = data.Character.GearSet.Gear;
-    //console.log(obj);
     var n = 1;
     $.each(obj, function (key, entry) {
-      //console.log(entry.ID);
-      $.getJSON("https://xivapi.com/item/"+entry.ID,
-      function(data){
-        gearName = data.Name;
-        //console.log("Name:"+gearName);
-        gearIcon = data.Icon;
-        //console.log("Icon:"+gearIcon);
-        gearUI_PNG = data.ItemUICategory.Icon;
-        gearUI_Name = data.ItemUICategory.Name;
-        gearUI_ID = data.ItemUICategory.ID;
-        try {
-          if (0 < gearUI_ID && gearUI_ID < 11 || 33 < gearUI_ID && gearUI_ID < 40) {
-            $(".leftEquipment").append($("<p class=\"equipmentL"+gearUI_ID+"\">"+gearName+" <img src=\"https://xivapi.com"+gearIcon+"\" alt=\""+gearName+"\" style=\"width:32px;height:32px;\"></p>"));
-            $(".leftItemIcon").append("<p class =\"itemIconL"+gearUI_ID+"\">"+gearUI_Name+" <img src=https://xivapi.com"+gearUI_PNG+">"+gearUI_ID+"</p>");
-          }else {
-            $(".rightEquipment").append($("<p class=\"equipmentR"+gearUI_ID+"\"><img src=\"https://xivapi.com"+gearIcon+"\" alt=\""+gearName+"\" style=\"width:32px;height:32px;\"> "+gearName+"</p>"));
-            $(".rightItemIcon").append("<p class =\"itemIconR"+gearUI_ID+"\">"+gearUI_ID+"<img src=https://xivapi.com"+gearUI_PNG+"> "+gearUI_Name+"</p>");
+      setTimeout(function (){
+        $.getJSON("https://xivapi.com/item/"+entry.ID,
+        function(item){
+          gearName = item.Name;
+          gearIcon = item.Icon;
+          gearUI_PNG = item.ItemUICategory.Icon;
+          gearUI_Name = item.ItemUICategory.Name;
+          gearUI_ID = item.ItemUICategory.ID;
+          n += gearUI_ID;
+          try {
+            if (0 < gearUI_ID && gearUI_ID < 11 || 33 < gearUI_ID && gearUI_ID < 40) {
+              $(".leftEquipment").append($("<p class=\"equipmentL"+gearUI_ID+"\">"+gearName+" <img src=\"https://xivapi.com"+gearIcon+"\" alt=\""+gearName+"\" style=\"width:32px;height:32px;\"></p>"));
+              $(".leftItemIcon").append("<p class =\"itemIconL"+gearUI_ID+"\">"+gearUI_Name+" <img src=https://xivapi.com"+gearUI_PNG+">"+gearUI_ID+"</p>");
+            }else {
+              $(".rightEquipment").append($("<p class=\"equipmentR"+gearUI_ID+"\"><img src=\"https://xivapi.com"+gearIcon+"\" alt=\""+gearName+"\" style=\"width:32px;height:32px;\"> "+gearName+"</p>"));
+              $(".rightItemIcon").append("<p class =\"itemIconR"+gearUI_ID+"\">"+gearUI_ID+"<img src=https://xivapi.com"+gearUI_PNG+"> "+gearUI_Name+"</p>");
+            }
+          } catch (e) {
+            if (n % 2 == 1) {
+              $(".leftEquipment").append($("<p class=\"equipmentL\">API call failed     <img src=\"https://xivapi.com/img-misc/lodestone/status.png\" style=\"width:32px;height:32px;\"></p>"));
+            }else {
+              $(".rightEquipment").append($("<p class=\"equipmentR\"><img src=\"https://xivapi.com/img-misc/lodestone/status.png\" style=\"width:32px;height:32px;\">     API call failed</p>"));
+            }
           }
-        } catch (e) {
-          if (n % 2 == 1) {
-            $(".leftEquipment").append($("<p class=\"equipmentL\">API call failed     <img src=\"https://xivapi.com/img-misc/lodestone/status.png\" style=\"width:32px;height:32px;\"></p>"));
-            n++;
-          }else {
-            $(".rightEquipment").append($("<p class=\"equipmentR\"><img src=\"https://xivapi.com/img-misc/lodestone/status.png\" style=\"width:32px;height:32px;\">     API call failed</p>"));
-          }
-        }
-      });
+        });
+      }, 500*n);
+      n++;
     })
   });
 }
