@@ -80,6 +80,7 @@ function getJobData(jobData){
         $(".searchingText").append(".");
       var jobEN = data.NameEnglish;
       var job = data.Name;
+      job = job.replace(/\s/g,"");
       $(".job").text(" "+jobEN);
       $(".jobIcon").attr("src", "https://xivapi.com/cj/companion/"+ job +".png");
         $(".searchingText").text("");
