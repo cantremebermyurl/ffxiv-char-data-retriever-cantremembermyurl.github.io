@@ -16,18 +16,43 @@ function getWeather(city){
 }
 //xivapi lodestone search
 var tempObj;
+var loading = false;
+var count = 3;
+var wait = 0;
+function waitAnimation(){
+  setTimeout(function(){
+    if (loading) {
+      if (count < 3) {
+        $(".searchingText").append(".");
+        count++;
+      } else {
+        $(".searchingText").text("loading");
+        count = 0;
+        if (wait == 0) {
+          wait = 1000;
+        }
+      }
+      waitAnimation();
+    } else {
+      $(".searchingText").text("");
+      count = 3;
+      wait = 0;
+    }
+  }, wait);
+}
+
 function search(){
-  var e = document.getElementById("serverList");
-  serverName = e.options[e.selectedIndex].value;
-    $(".searchingText").text("Searching");
+  loading = true;
+  waitAnimation();
+  serverName = document.getElementById("serverList");
+  serverName = serverName.options[serverName.selectedIndex].value;
   characterName = document.getElementById("searchField").value;
   try {
     $.getJSON("https://xivapi.com/character/search?name="+ characterName+"&server="+serverName)
     .success(function(data){
       try {
-          $(".searchingText").append(".");
         tempObj = data.Results[0];
-        charID = tempObj.ID;
+        var charID = tempObj.ID;
         getCharData(charID);
       } catch (e) {
         $(".searchingText").text("Search failed! Did you put in the correct Character Name and Server?");
@@ -41,22 +66,22 @@ function search(){
   }
 }
 
-var charID = 0;
 //xivapi /Character data
 function getCharData(ID){
+  if (!loading) {
+    loading = true;
+    waitAnimation();
+  }
   var currentJobID = 0;
   var url = "https://xivapi.com/Character/" + ID;
   $.getJSON(url)
     .then(function(data){
       try {
         var name = data.Character.Name;
-          $(".searchingText").append(".");
         var portrait = data.Character.Portrait;
-
         var server = data.Character.Server;
         currentJobID += data.Character.ActiveClassJob.JobID;
         var currentLvl = data.Character.ActiveClassJob.Level;
-
         $(".portraitImg").attr("src", portrait);
         var lodestone = "https://na.finalfantasyxiv.com/lodestone/character/" + ID + "/";
         $(".portraitURL").attr("href", lodestone);
@@ -68,8 +93,8 @@ function getCharData(ID){
       } catch (e) {
         $(".searchingText").text("Something went wrong! Please try again.");
       }
-    })
-
+    }).done(function() {
+    });
 }
 
 //xivapi /ClassJob using data from /Character
@@ -77,13 +102,11 @@ function getJobData(jobData){
   $.getJSON(
     "https://xivapi.com/ClassJob/" + jobData)
     .then(function(data){
-        $(".searchingText").append(".");
       var jobEN = data.NameEnglish;
       var job = data.Name;
-      job = job.replace(/\s/g,"");
+      job = job.replace(/\s/g,""); /*remove whitespace from job name*/
       $(".job").text(" "+jobEN);
       $(".jobIcon").attr("src", "https://xivapi.com/cj/companion/"+ job +".png");
-        $(".searchingText").text("");
     })
 }
 
@@ -110,11 +133,11 @@ function getEquipment(url){
   $(".leftItemIcon").empty();
   $(".rightEquipment").empty();
   $(".rightItemIcon").empty();
-  var obj;
   $.getJSON(url,
   function (data) {
-    obj = data.Character.GearSet.Gear;
+    var obj = data.Character.GearSet.Gear;
     var n = 1;
+    var done = 0;
     $.each(obj, function (key, entry) {
       setTimeout(function (){
         $.getJSON("https://xivapi.com/item/"+entry.ID,
@@ -124,7 +147,6 @@ function getEquipment(url){
           gearUI_PNG = item.ItemUICategory.Icon;
           gearUI_Name = item.ItemUICategory.Name;
           gearUI_ID = item.ItemUICategory.ID;
-          n += gearUI_ID;
           try {
             if (33 < gearUI_ID && gearUI_ID < 40) /*if armor piece*/{
               $(".leftEquipment").append($("<p class=\"equipmentL"+gearUI_ID+"\">"+gearName+" <img src=\"https://xivapi.com"+gearIcon+"\" alt=\""+gearName+"\" style=\"width:32px;height:32px;\"></p>"));
@@ -144,9 +166,13 @@ function getEquipment(url){
               $(".rightEquipment").append($("<p class=\"equipmentR\"><img src=\"https://xivapi.com/img-misc/lodestone/status.png\" style=\"width:32px;height:32px;\">     API call failed</p>"));
             }
           }
+        }).done(function() {
+          done--;
+          if(done == 0){loading = false;}
         });
       }, 500*n);
       n++;
+      done++;
     })
   });
 }
