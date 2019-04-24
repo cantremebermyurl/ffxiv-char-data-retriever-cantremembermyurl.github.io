@@ -19,13 +19,15 @@ var tempObj;
 var loading = false;
 var count = 3;
 var wait = 0;
+var queue = false;
 function waitAnimation(){
   setTimeout(function(){
     if (loading) {
       if (count < 3) {
         $(".searchingText").append(".");
         count++;
-      } else {
+      }
+      else {
         $(".searchingText").text("loading");
         count = 0;
         if (wait == 0) {
@@ -40,13 +42,40 @@ function waitAnimation(){
     }
   }, wait);
 }
-
+var characterName;
+var serverName;
+function startSearch(){
+  if (!queue) {
+    serverName = document.getElementById("serverList");
+    serverName = serverName.options[serverName.selectedIndex].value;
+    characterName = document.getElementById("searchField").value;
+    queueSearch();
+    $(".loadingGif").attr("style", "visibility:visible");
+    $("#searchButton").attr("value", "Your search is queued please wait!");
+    queue = true;
+  }
+  else if (queue) {
+    $(".errorText").text("Please do not spam the search button!");
+  }
+}
+function queueSearch(){
+  if (!loading) {
+    loading = true;
+    search();
+  }
+  else {
+    setTimeout(function (){
+      queueSearch();
+    },100);
+  }
+}
 function search(){
-  loading = true;
-  waitAnimation();
-  serverName = document.getElementById("serverList");
-  serverName = serverName.options[serverName.selectedIndex].value;
-  characterName = document.getElementById("searchField").value;
+  setTimeout(function (){
+    queue = false;
+    $("#searchButton").attr("value", "Search");
+    $(".errorText").text("");
+    waitAnimation();
+  },250);
   try {
     $.getJSON("https://xivapi.com/character/search?name="+ characterName+"&server="+serverName)
     .success(function(data){
@@ -55,11 +84,17 @@ function search(){
         var charID = tempObj.ID;
         getCharData(charID);
       } catch (e) {
-        $(".searchingText").text("Search failed! Did you put in the correct Character Name and Server?");
+        loading = false;
+        $(".errorText").text("Search failed! Did you put in the correct Character Name and Server?");
+        $(".loadingGif").attr("style", "visibility:hidden");
+        $("#searchButton").attr("value", "Search");
       }
     })
     .error(function() {
-      $(".searchingText").text("Search failed! XIVAPI Service Error");
+      loading = false;
+      $(".errorText").text("Search failed! XIVAPI Service Error");
+      $(".loadingGif").attr("style", "visibility:hidden");
+      $("#searchButton").attr("value", "Search");
     })
   } catch (e) {
     console.log("!!! something went wrong: "+e);
@@ -168,9 +203,14 @@ function getEquipment(url){
           }
         }).done(function() {
           done--;
-          if(done == 0){loading = false;}
+          if(done == 0){
+            loading = false;
+            queue = false;
+            $(".loadingGif").attr("style", "visibility:hidden");
+            $("#searchButton").attr("value", "Search");
+          }
         });
-      }, 500*n);
+      }, 300*n);
       n++;
       done++;
     })

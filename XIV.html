@@ -37,10 +37,10 @@
           <img src="https://xivapi.com/img-misc/Mendacity.png" alt="xivapi icon">
         </a>
       </span>
-      <h1>Final Fantasy XIV API Test</h1>
+      <h1 id="h1">Final Fantasy XIV API Test</h1>
       <p>
-        <form class="xivCharSearch" action="#" onsubmit="search(this);return false" method="post">
-          <input type="text" id="searchField" placeholder="Search your character" value="Search your character" onmousedown="active();" onblur="inactive();"/><input type="submit" id="searchButton" value="Search">
+        <form class="xivCharSearch" action="#" onsubmit="startSearch();return false" method="post">
+          <img class="loadingGif"src="loading.gif" alt="loading.gif" width="32" height="32" style = "visibility:hidden"><input type="text" id="searchField" placeholder="Search your character" value="Search your character" onmousedown="active();" onblur="inactive();"/><input type="submit" id="searchButton" value="Search">
           <p>
             <select id="serverList" selected="">
               <option value="">-Choose a server-</option>
@@ -48,6 +48,7 @@
           </p>
         </form>
         <span class="searchingText"></span>
+        <p class="errorText"></p>
       </p>
       <div class="characterInfoRow">
         <div class="leftColumn">
