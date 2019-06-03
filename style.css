@@ -182,6 +182,10 @@ a {
 .portrait{
   margin-bottom: -5px;
 }
+.FCtag{
+  margin-top:auto;
+  margin-bottom:auto;
+}
 .pName{
   margin-top:auto;
   margin-bottom:auto;
@@ -198,6 +202,14 @@ a {
   box-shadow: inset 0px 0px 0px 1000px #404040;
   font-size: 30px;
   font-weight: bold;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.FCtag{
+  box-shadow: inset 0px 0px 0px 1000px #404040;
+  font-size: 16px;
+  padding-top: 2px;
+  padding-bottom: -2px;
   padding-left: 4px;
   padding-right: 4px;
 }

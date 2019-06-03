@@ -117,6 +117,7 @@ function getCharData(ID){
         var server = data.Character.Server;
         currentJobID += data.Character.ActiveClassJob.JobID;
         var currentLvl = data.Character.ActiveClassJob.Level;
+        var fcID = data.Character.FreeCompanyId;
         $(".portraitImg").attr("src", portrait);
         var lodestone = "https://na.finalfantasyxiv.com/lodestone/character/" + ID + "/";
         $(".portraitURL").attr("href", lodestone);
@@ -125,11 +126,24 @@ function getCharData(ID){
         $(".lvl").text("Lv. "+currentLvl);
         getJobData(currentJobID);
         getEquipment(url);
+        getFC(fcID);
       } catch (e) {
         $(".searchingText").text("Something went wrong! Please try again.");
       }
     }).done(function() {
     });
+}
+
+function getFC(id){
+  $.getJSON("https://xivapi.com/freecompany/"+id)
+    .then(function(data){
+      try {
+        var fcTag = data.FreeCompany.Tag;
+        $(".FCtag").text("«"+fcTag+"»");
+      } catch (e) {
+        $(".FCtag").text("");
+      }
+    })
 }
 
 //xivapi /ClassJob using data from /Character
