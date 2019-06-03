@@ -182,9 +182,9 @@ a {
 .portrait{
   margin-bottom: -5px;
 }
-.FCtag{
+.pFC{
   margin-top:auto;
-  margin-bottom:auto;
+  margin-bottom:-2px;
 }
 .pName{
   margin-top:auto;
@@ -209,7 +209,7 @@ a {
   box-shadow: inset 0px 0px 0px 1000px #404040;
   font-size: 16px;
   padding-top: 2px;
-  padding-bottom: -2px;
+  padding-bottom: 0px;
   padding-left: 4px;
   padding-right: 4px;
 }
