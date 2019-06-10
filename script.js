@@ -135,6 +135,7 @@ function getCharData(ID){
 }
 
 function getFC(id){
+  $(".FCtag").text("-Guildless-");
   $.getJSON("https://xivapi.com/freecompany/"+id)
     .then(function(data){
       try {
